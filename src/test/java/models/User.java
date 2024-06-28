@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserPojo {
+public class User {
     private Integer id;
     private String email;
     @JsonProperty("first_name")
