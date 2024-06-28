@@ -1,4 +1,4 @@
-package tests;
+package tests.get;
 
 import models.User;
 import org.junit.jupiter.api.Tag;

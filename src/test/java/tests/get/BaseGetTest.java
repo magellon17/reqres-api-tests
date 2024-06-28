@@ -1,7 +1,8 @@
-package tests;
+package tests.get;
 
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.specification.ResponseSpecification;
+import tests.BaseApiTest;
 
 import static org.hamcrest.Matchers.hasKey;
 import static org.hamcrest.Matchers.lessThan;

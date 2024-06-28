@@ -1,4 +1,4 @@
-package tests;
+package tests.post;
 
 import models.CreateUserRequest;
 import models.CreateUserResponse;
@@ -13,9 +13,9 @@ import utils.CreateUserRequestGenerator;
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class PostUserAndCheckNameTest extends BasePostTest {
+public class CreateUserAndCheckJobTest extends BasePostTest {
 
-    private static final Logger log = LoggerFactory.getLogger(PostUserAndCheckNameTest.class);
+    private static final Logger log = LoggerFactory.getLogger(CreateUserAndCheckJobTest.class);
 
     private final CreateUserRequest req = CreateUserRequestGenerator.getCreateRandomUserRequest();
 
@@ -23,7 +23,7 @@ public class PostUserAndCheckNameTest extends BasePostTest {
     @Tag("POST")
     public void createUser() {
         log.info("Создаем пользователя {}", req.getName());
-        CreateUserResponse response = given()
+        CreateUserResponse resp = given()
                 .spec(REQ_SPEC)
                 .basePath("/api/users")
                 .body(req)
@@ -33,8 +33,8 @@ public class PostUserAndCheckNameTest extends BasePostTest {
                 .spec(RESP_SPEC)
                 .extract()
                 .as(CreateUserResponse.class);;
-        assertEquals(response.getName(), req.getName(),
-                "Имя созданного пользователя не совпало с ожидаемым");
+        assertEquals(resp.getJob(), req.getJob(),
+                "Занятость созданного пользователя не совпала с ожидаемой");
     }
 
     @AfterEach
@@ -42,5 +42,4 @@ public class PostUserAndCheckNameTest extends BasePostTest {
         log.info("Удаляем созданного пользователя {}", req.getName());
         UserSteps.deleteUser(req.getName());
     }
-
 }
