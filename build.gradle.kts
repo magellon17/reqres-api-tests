@@ -25,8 +25,6 @@ dependencies {
     testImplementation("org.assertj:assertj-core:3.26.0")
 
     testImplementation("io.rest-assured:json-schema-validator:5.4.0")
-
-    testImplementation("io.qameta.allure:allure-rest-assured:2.27.0")
 }
 
 tasks.test {

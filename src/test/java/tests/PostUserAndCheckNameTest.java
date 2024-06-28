@@ -3,25 +3,37 @@ package tests;
 import models.CreateUserRequest;
 import models.CreateUserResponse;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import steps.UserSteps;
 import utils.CreateUserRequestGenerator;
 
-public class CreateUserAndCheckNameTest {
+import static io.restassured.RestAssured.given;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-    private static final Logger log = LoggerFactory.getLogger(CreateUserAndCheckNameTest.class);
+public class PostUserAndCheckNameTest extends BasePostTest {
+
+    private static final Logger log = LoggerFactory.getLogger(PostUserAndCheckNameTest.class);
 
     private final CreateUserRequest req = CreateUserRequestGenerator.getCreateRandomUserRequest();
 
     @Test
+    @Tag("POST")
     public void createUser() {
         log.info("Создаем пользователя {}", req.getName());
-        CreateUserResponse response = UserSteps.createUser(req);
-        Assertions.assertEquals(response.getName(),
-                req.getName(),
+        CreateUserResponse response = given()
+                .spec(REQ_SPEC)
+                .basePath("/api/users")
+                .body(req)
+                .when()
+                .post()
+                .then()
+                .spec(RESP_SPEC)
+                .extract()
+                .as(CreateUserResponse.class);;
+        assertEquals(response.getName(), req.getName(),
                 "Имя созданного пользователя не совпало с ожидаемым");
     }
 
