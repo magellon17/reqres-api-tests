@@ -11,13 +11,13 @@ import java.util.List;
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class GetUsersAndCheckAvatarContainsNameTest extends BaseGetTest {
+public class GetUsersAndCheckAvatarContainsIdTest extends BaseGetTest {
 
-    private static final Logger log = LoggerFactory.getLogger(GetUsersAndCheckAvatarContainsNameTest.class);
+    private static final Logger log = LoggerFactory.getLogger(GetUsersAndCheckAvatarContainsIdTest.class);
 
     @Test
     @Tag("GET")
-    public void checkAvatarContainsIdTest() {
+    public void getUsersAndCheckAvatarContainsIdTest() {
         log.info("Получаем список пользователей");
         List<User> users = given()
                 .spec(REQ_SPEC)
@@ -30,6 +30,7 @@ public class GetUsersAndCheckAvatarContainsNameTest extends BaseGetTest {
                 .extract()
                 .jsonPath()
                 .getList("data", User.class);
+        log.info("Проверяем наличие id пользователя в ссылке на аватар");
         assertTrue(users.stream()
                 .allMatch(user -> user.getAvatar().contains(user.getId().toString())));
     }
