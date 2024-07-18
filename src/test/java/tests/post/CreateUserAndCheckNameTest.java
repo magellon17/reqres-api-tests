@@ -21,16 +21,14 @@ public class CreateUserAndCheckNameTest extends BasePostTest {
 
     @Test
     @Tag("POST")
-    public void createUser() {
+    public void createUserAndCheckNameTest() {
         log.info("Создаем пользователя {}", req.getName());
         CreateUserResponse response = given()
-                .spec(REQ_SPEC)
                 .basePath("/api/users")
                 .body(req)
                 .when()
                 .post()
                 .then()
-                .spec(RESP_SPEC)
                 .extract()
                 .as(CreateUserResponse.class);;
         assertEquals(response.getName(), req.getName(),

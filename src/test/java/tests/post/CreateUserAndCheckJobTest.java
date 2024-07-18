@@ -8,12 +8,13 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import steps.UserSteps;
+import tests.ApiTest;
 import utils.CreateUserRequestGenerator;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CreateUserAndCheckJobTest extends BasePostTest {
+public class CreateUserAndCheckJobTest extends ApiTest {
 
     private static final Logger log = LoggerFactory.getLogger(CreateUserAndCheckJobTest.class);
 
@@ -21,16 +22,14 @@ public class CreateUserAndCheckJobTest extends BasePostTest {
 
     @Test
     @Tag("POST")
-    public void createUser() {
+    public void createUserAndCheckJobTest() {
         log.info("Создаем пользователя {}", req.getName());
         CreateUserResponse resp = given()
-                .spec(REQ_SPEC)
                 .basePath("/api/users")
                 .body(req)
                 .when()
                 .post()
                 .then()
-                .spec(RESP_SPEC)
                 .extract()
                 .as(CreateUserResponse.class);;
         assertEquals(resp.getJob(), req.getJob(),
