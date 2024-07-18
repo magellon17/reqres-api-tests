@@ -7,7 +7,7 @@ import static io.restassured.RestAssured.given;
 
 public class UserSteps {
 
-    public static CreateUserResponse createUser(CreateUserRequest req){
+    public static CreateUserResponse createUser(CreateUserRequest req) {
         return given()
                 .baseUri("https://reqres.in/api")
                 .body(req)
@@ -19,15 +19,12 @@ public class UserSteps {
                 .as(CreateUserResponse.class);
     }
 
-    public static int deleteUser(String user){
-        return given()
+    public static void deleteUser(String userId) {
+        given()
                 .baseUri("https://reqres.in")
-                .basePath("/api/users/")
                 .when()
-                .delete(user)
+                .delete("/api/users/" + userId)
                 .then()
-                .statusCode(204)
-                .extract()
-                .statusCode();
+                .statusCode(204);
     }
 }

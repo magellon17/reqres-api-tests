@@ -13,32 +13,36 @@ import utils.CreateUserRequestGenerator;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static utils.Specifications.requestSpec;
+import static utils.Specifications.responseSpecOK201;
 
 public class CreateUserAndCheckJobTest extends ApiTest {
 
     private static final Logger log = LoggerFactory.getLogger(CreateUserAndCheckJobTest.class);
 
     private final CreateUserRequest req = CreateUserRequestGenerator.getCreateRandomUserRequest();
+    private CreateUserResponse resp;
 
     @Test
     @Tag("POST")
     public void createUserAndCheckJobTest() {
         log.info("Создаем пользователя {}", req.getName());
-        CreateUserResponse resp = given()
-                .basePath("/api/users")
+        resp = given()
                 .body(req)
                 .when()
-                .post()
+                .spec(requestSpec(BASE_URL))
+                .post("/api/users")
                 .then()
-                .extract()
-                .as(CreateUserResponse.class);;
-        assertEquals(resp.getJob(), req.getJob(),
+                .spec(responseSpecOK201())
+                .log().all()
+                .extract().as(CreateUserResponse.class);
+        assertEquals(req.getJob(), resp.getJob(),
                 "Занятость созданного пользователя не совпала с ожидаемой");
     }
 
     @AfterEach
     public void cleanUp() {
         log.info("Удаляем созданного пользователя {}", req.getName());
-        UserSteps.deleteUser(req.getName());
+        UserSteps.deleteUser(resp.getId());
     }
 }

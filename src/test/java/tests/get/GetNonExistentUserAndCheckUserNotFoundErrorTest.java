@@ -37,6 +37,7 @@ public class GetNonExistentUserAndCheckUserNotFoundErrorTest extends ApiTest {
                 .log().all()
                 .extract().statusCode();
         log.info("Проверяем, что пользователь не был найден, т.е. статус код равен 404");
-        assertEquals(HttpStatus.SC_NOT_FOUND, statusCode);
+        assertEquals(HttpStatus.SC_NOT_FOUND, statusCode,
+                "Статус код ответа не равен 404");
     }
 }

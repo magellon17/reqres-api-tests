@@ -30,8 +30,8 @@ public class GetUsersAndCheckAvatarContainsIdTest extends ApiTest {
                 .spec(responseSpecOK200())
                 .log().all()
                 .extract().jsonPath().getList("data", User.class);
-
         log.info("Проверяем наличие id пользователя в ссылке на аватар");
-        assertTrue(users.stream().allMatch(user -> user.getAvatar().contains(user.getId())));
+        assertTrue(users.stream().allMatch(user -> user.getAvatar().contains(user.getId())),
+                "Id пользователя не совпал с id в ссылке на его аватар");
     }
 }

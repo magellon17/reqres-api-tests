@@ -30,8 +30,8 @@ public class GetSingleUserAndCheckIdTest extends ApiTest {
                 .spec(responseSpecOK200())
                 .log().all()
                 .extract().jsonPath().getObject("data", User.class);
-
         log.info("Сверяем полученный id пользователя с ожидаемым");
-        assertEquals(USER_ID, user.getId());
+        assertEquals(USER_ID, user.getId(),
+                "Id полученного пользователя не совпал с ожидаемым");
     }
 }
