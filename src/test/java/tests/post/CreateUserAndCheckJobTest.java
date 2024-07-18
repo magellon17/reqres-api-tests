@@ -20,29 +20,29 @@ public class CreateUserAndCheckJobTest extends ApiTest {
 
     private static final Logger log = LoggerFactory.getLogger(CreateUserAndCheckJobTest.class);
 
-    private final CreateUserRequest req = CreateUserRequestGenerator.getCreateRandomUserRequest();
-    private CreateUserResponse resp;
+    private final CreateUserRequest createUserRequest = CreateUserRequestGenerator.getCreateRandomUserRequest();
+    private CreateUserResponse createUserResponse;
 
     @Test
     @Tag("POST")
     public void createUserAndCheckJobTest() {
-        log.info("Создаем пользователя {}", req.getName());
-        resp = given()
-                .body(req)
-                .when()
+        log.info("Создаем пользователя {}", createUserRequest.getName());
+        createUserResponse = given()
                 .spec(requestSpec(BASE_URL))
+                .body(createUserRequest)
+                .when()
                 .post("/api/users")
                 .then()
                 .spec(responseSpecOK201())
                 .log().all()
                 .extract().as(CreateUserResponse.class);
-        assertEquals(req.getJob(), resp.getJob(),
+        assertEquals(createUserRequest.getJob(), createUserResponse.getJob(),
                 "Занятость созданного пользователя не совпала с ожидаемой");
     }
 
     @AfterEach
     public void cleanUp() {
-        log.info("Удаляем созданного пользователя {}", req.getName());
-        UserSteps.deleteUser(resp.getId());
+        log.info("Удаляем созданного пользователя {}", createUserRequest.getName());
+        UserSteps.deleteUser(createUserResponse.getId());
     }
 }
