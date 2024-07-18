@@ -15,5 +15,5 @@ import lombok.NoArgsConstructor;
 public class CreateUserResponse {
     private String name;
     private String job;
-    private Integer id;
+    private String id;
 }
