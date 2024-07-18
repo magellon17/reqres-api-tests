@@ -32,6 +32,6 @@ public class GetUsersAndCheckAvatarContainsIdTest extends ApiTest {
                 .extract().jsonPath().getList("data", User.class);
 
         log.info("Проверяем наличие id пользователя в ссылке на аватар");
-        assertTrue(users.stream().allMatch(user -> user.getAvatar().contains(user.getId().toString())));
+        assertTrue(users.stream().allMatch(user -> user.getAvatar().contains(user.getId())));
     }
 }

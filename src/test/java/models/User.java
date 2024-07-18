@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
-    private Integer id;
+    private String id;
     private String email;
     @JsonProperty("first_name")
     private String firstName;
