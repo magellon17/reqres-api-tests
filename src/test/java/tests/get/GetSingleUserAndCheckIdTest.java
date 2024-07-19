@@ -13,7 +13,7 @@ import utils.EndPoints;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static utils.CreateUserRequestGenerator.getCreateRandomUserRequest;
+import static utils.UserRequestGenerator.getCreateRussianUserRequest;
 import static utils.Specifications.requestSpec;
 import static utils.Specifications.responseSpecOK200;
 
@@ -26,7 +26,7 @@ public class GetSingleUserAndCheckIdTest extends ApiTest {
     @BeforeEach
     public void setUp() {
         log.info("Создаем тестового пользователя");
-        createUserResponse = UsersUtils.createUser(getCreateRandomUserRequest());
+        createUserResponse = UsersUtils.createUser(getCreateRussianUserRequest());
     }
 
     @Test

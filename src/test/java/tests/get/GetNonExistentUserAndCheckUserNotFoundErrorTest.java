@@ -1,13 +1,12 @@
 package tests.get;
 
-import io.restassured.internal.http.Status;
-import models.User;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import steps.UserSteps;
+import utils.UsersUtils;
 import tests.ApiTest;
+import utils.EndPoints;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -20,9 +19,9 @@ public class GetNonExistentUserAndCheckUserNotFoundErrorTest extends ApiTest {
     private static final String USER_ID = "23";
 
     @BeforeEach
-    public void cleanUp() {
+    public void setUp() {
         log.info("Удаляем пользователя с id {}", USER_ID);
-        UserSteps.deleteUser(USER_ID);
+        UsersUtils.deleteUser(USER_ID);
     }
 
     @Test
@@ -30,9 +29,9 @@ public class GetNonExistentUserAndCheckUserNotFoundErrorTest extends ApiTest {
     public void getNonExistentUserAndCheckUserNotFoundErrorTest() {
         log.info("Получаем пользователя с id {}", USER_ID);
         Integer statusCode = given()
-                .when()
                 .spec(requestSpec(BASE_URL))
-                .get("/api/users/" + USER_ID)
+                .pathParam("id", USER_ID)
+                .get(EndPoints.getUser)
                 .then()
                 .log().all()
                 .extract().statusCode();

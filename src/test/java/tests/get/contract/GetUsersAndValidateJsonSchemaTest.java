@@ -22,7 +22,6 @@ public class GetUsersAndValidateJsonSchemaTest extends ApiTest {
         log.info("Получаем список пользователей и делаеи валидацию схемы");
         given()
                 .spec(requestSpec(BASE_URL))
-                .when()
                 .get("/api/users?page=2")
                 .then()
                 .spec(responseSpecOK200())

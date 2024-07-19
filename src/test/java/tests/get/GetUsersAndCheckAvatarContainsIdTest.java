@@ -23,7 +23,6 @@ public class GetUsersAndCheckAvatarContainsIdTest extends ApiTest {
     public void getUsersAndCheckAvatarContainsIdTest() {
         log.info("Получаем список пользователей");
         List<User> users = given()
-                .when()
                 .spec(requestSpec(BASE_URL))
                 .get("/api/users?page=2")
                 .then()

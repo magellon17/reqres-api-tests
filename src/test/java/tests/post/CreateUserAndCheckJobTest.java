@@ -19,8 +19,8 @@ import java.util.stream.Stream;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static utils.CreateUserRequestGenerator.getCreateRandomUserRequest;
-import static utils.CreateUserRequestGenerator.getCreateRussianUserRequest;
+import static utils.UserRequestGenerator.getCreateRandomUserRequest;
+import static utils.UserRequestGenerator.getCreateRussianUserRequest;
 import static utils.Specifications.requestSpec;
 import static utils.Specifications.responseSpecOK201;
 
