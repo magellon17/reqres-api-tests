@@ -10,4 +10,11 @@ public class CreateUserRequestGenerator {
                 .job(RandomString.make(5))
                 .build();
     }
+
+    public static CreateUserRequest getCreateRussianUserRequest() {
+        return CreateUserRequest.builder()
+                .name("Боб")
+                .job("Строитель")
+                .build();
+    }
 }
